@@ -1,0 +1,48 @@
+LIST OF ALLOWED FUNCTIONS
+
+1. USLEEP
+
+#include <unistd.h>
+
+int usleep(useconds_t usec);
+
+suspend execution for microsecond intervals
+
+The usleep() function suspends execution of the calling thread
+       for (at least) usec microseconds.  The sleep may be lengthened
+       slightly by any system activity or by the time spent processing
+       the call or by the granularity of system timers.
+
+The usleep() function returns 0 on success.  On error, -1 is
+       returned, with errno set to indicate the error.
+
+2. GETTIMEOFDAY
+
+#include <sys/time.h>
+
+int gettimeofday(struct timeval *restrict tv, struct timezone *_Nullable restrict tz);
+
+The tv argument is a struct timeval (as specified in
+       <sys/time.h>):
+
+           struct timeval {
+               time_t      tv_sec;     /* seconds */
+               suseconds_t tv_usec;    /* microseconds */
+           };
+
+       and gives the number of seconds and microseconds since the Epoch
+      (The Epoch is 1970-01-01 00:00:00 +0000 (UTC))
+
+The tz argument is a struct timezone: its use is obsolete; the tz argument should normally be specified as NULL
+
+The function returns 0 for success.  On error, -1 is returned
+
+3. PTHREAD_CREATE
+
+#include <pthread.h>
+
+ int pthread_create(pthread_t *restrict thread,
+                   const pthread_attr_t *restrict attr,
+                   void *(*start_routine)(void *),
+                   void *restrict arg);
+
