@@ -46,3 +46,83 @@ The function returns 0 for success.  On error, -1 is returned
                    void *(*start_routine)(void *),
                    void *restrict arg);
 
+The pthread_create() function starts a new thread in the calling
+       process.  The new thread starts execution by invoking
+       start_routine(); arg is passed as the sole argument of
+       start_routine().
+
+       The new thread terminates in one of the following ways:
+
+       •  It calls pthread_exit(3), specifying an exit status value that
+          is available to another thread in the same process that calls
+          pthread_join(3).
+
+       •  It returns from start_routine().  This is equivalent to
+          calling pthread_exit(3) with the value supplied in the return
+          statement.
+
+       •  It is canceled (see pthread_cancel(3)).
+
+       •  Any of the threads in the process calls exit(3), or the main
+          thread performs a return from main().  This causes the
+          termination of all threads in the process.
+
+       The attr argument points to a pthread_attr_t structure whose
+       contents are used at thread creation time to determine attributes
+       for the new thread; this structure is initialized using
+       pthread_attr_init(3) and related functions.  If attr is NULL,
+       then the thread is created with default attributes.
+
+       Before returning, a successful call to pthread_create() stores
+       the ID of the new thread in the buffer pointed to by thread; this
+       identifier is used to refer to the thread in subsequent calls to
+       other pthreads functions.
+
+The initial value of the new thread's CPU-time clock is 0
+
+On success, pthread_create() returns 0; on error, it returns an
+       error number, and the contents of *thread are undefined.
+
+4. PTHREAD_DETACH
+
+#include <pthread.h>
+
+       int pthread_detach(pthread_t thread);
+
+The pthread_detach() function marks the thread identified by
+       thread as detached.  When a detached thread terminates, its
+       resources are automatically released back to the system without
+       the need for another thread to join with the terminated thread.
+
+       Attempting to detach an already detached thread results in
+       unspecified behavior.
+
+On success, pthread_detach() returns 0; on error, it returns an
+       error number.
+
+5. PTHREAD_JOIN
+
+#include <pthread.h>
+
+       int pthread_join(pthread_t thread, void **retval);
+
+The pthread_join() function waits for the thread specified by
+       thread to terminate.  If that thread has already terminated, then
+       pthread_join() returns immediately.  The thread specified by
+       thread must be joinable.
+
+(similar to waitpid, but for threads)
+
+       If retval is not NULL, then pthread_join() copies the exit status
+       of the target thread (i.e., the value that the target thread
+       supplied to pthread_exit(3)) into the location pointed to by
+       retval.  If the target thread was canceled, then PTHREAD_CANCELED
+       is placed in the location pointed to by retval.
+
+       If multiple threads simultaneously try to join with the same
+       thread, the results are undefined.  If the thread calling
+       pthread_join() is canceled, then the target thread will remain
+       joinable (i.e., it will not be detached).
+
+On success, pthread_join() returns 0; on error, it returns an
+       error number.
