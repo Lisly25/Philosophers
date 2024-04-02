@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:10:57 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 13:13:37 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/02 13:48:37 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,8 @@ void	free_philos(t_philo **philos)
 	}
 	free(philos);
 }
+
+/*void	destroy_mutexes(t_philo **philos, int i)
+{
+	
+}*/

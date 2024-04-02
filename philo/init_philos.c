@@ -6,16 +6,11 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:59:44 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 13:16:45 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/02 13:29:40 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static t_philo	**populate_philos(t_philo **philos, t_params *params)
-{
-	
-}
 
 t_philo	**init_philos(t_params *params)
 {
@@ -42,5 +37,6 @@ t_philo	**init_philos(t_params *params)
 		}
 		i++;
 	}
-	return (populate_philos(philos, params));
+	philos[i] = NULL;
+	return (philos);
 }

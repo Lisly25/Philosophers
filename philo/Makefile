@@ -6,7 +6,7 @@
 #    By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/02 09:39:18 by skorbai           #+#    #+#              #
-#    Updated: 2024/04/02 13:14:18 by skorbai          ###   ########.fr        #
+#    Updated: 2024/04/02 14:58:24 by skorbai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS = main.c \
 		utils.c \
 		ft_itoa.c \
 		init_philos.c \
-		error.c
+		error.c \
+		simulate.c
 
 OBJS = $(SRCS:.c=.o)
 
