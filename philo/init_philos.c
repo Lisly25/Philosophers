@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:59:44 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 13:29:40 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:49:54 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_philo	**init_philos(t_params *params)
 		if (philos[i] == NULL)
 		{
 			printf("Error: malloc failure\n");
+			free_philos(philos, params);
 			free(params);
-			free_philos(philos);
 			return (NULL);
 		}
 		i++;

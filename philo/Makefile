@@ -6,7 +6,7 @@
 #    By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/02 09:39:18 by skorbai           #+#    #+#              #
-#    Updated: 2024/04/02 14:58:24 by skorbai          ###   ########.fr        #
+#    Updated: 2024/04/02 15:22:23 by skorbai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,9 +40,13 @@ fclean: clean
 
 re: fclean all
 
-tidymake: re clean
+tidymake: re
+	make clean
 
 san: $(OBJS)
-	cc $(C_FLAGS) -fsanitize=thread -g $(OBJS) -o san
+	cc $(C_FLAGS) -fsanitize=address -g $(OBJS) -o san
+
+thread: $(OBJS)
+	cc $(C_FLAGS) -fsanitize=thread -g $(OBJS) -o thread
 
 .PHONY: all clean fclean re tidymake san

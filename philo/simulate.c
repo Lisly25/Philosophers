@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 14:59:48 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:20:14 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 static void	philo_cycle(t_params *params)
 {
-	struct timeval	*current_time;
+	struct timeval	current_time;
 	suseconds_t		time_elapsed;
 
-	gettimeofday(current_time, NULL);
-	time_elapsed = (current_time->tv_usec - params->start.tv_usec) / 1000;
+	gettimeofday(&current_time, NULL);
+	time_elapsed = (current_time.tv_usec - params->start) / 1000;
 	printf("Time since simulation start in microseconds: %d\n", time_elapsed);
+	return ;
 }
 
 static int	init_locks(t_philo **philos, t_params *params)
@@ -27,22 +28,23 @@ static int	init_locks(t_philo **philos, t_params *params)
 	int	i;
 
 	i = 0;
-	while (i < params)
+	while (i < params->philo_count)
 	{
-		if (pthread_mutex_init(philos[i]->left_fork, NULL) != 0)
+		if (pthread_mutex_init(&philos[i]->left_fork, NULL) != 0)
 		{
+			free_philos(philos, params);
 			free(params);
-			free_philos(philos);
 			return (-1);
 		}
-		if (pthread_mutex_init(philos[i]->right_fork, NULL) != 0)
+		if (pthread_mutex_init(&philos[i]->right_fork, NULL) != 0)
 		{
+			free_philos(philos, params);
 			free(params);
-			free_philos(philos);
 			return (-1);
 		}
 		i++;
 	}
+	return (0);
 }
 
 static int	init_threads(t_params *params, t_philo **philos)
@@ -52,27 +54,45 @@ static int	init_threads(t_params *params, t_philo **philos)
 	i = 0;
 	while (i < params->philo_count)
 	{
-		if (pthread_create(philos[i]->thread, NULL, (*philo_cycle), \
+		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)params) != 0)
 		{
+			//destroy_locks(philos, i);
+			free_philos(philos, params);
 			free(params);
-			destroy_threads(philos, i);
-			free_philos(philos);
 			return (-1);
 		}
+		i++;
+	}
+	return (0);
+}
+
+static void	join_threads(t_params *params, t_philo **philos)
+{
+	int	i;
+
+	i = 0;
+	while (i < params->philo_count)
+	{
+		pthread_join(philos[i]->thread, NULL);
+		i++;
 	}
 }
 
 void	simulate(t_params *params, t_philo **philos)
 {
+	struct timeval	start;
+
 	if (init_locks(philos, params) == -1)
 		return ;
-	if (gettimeofday(&params->start, NULL) != 0)
+	if (gettimeofday(&start, NULL) != 0)
 	{
+		free_philos(philos, params);
 		free(params);
-		free_philos(philos);
 		return ;
 	}
+	params->start = start.tv_usec;
 	if (init_threads(params, philos) == -1)
 		return ;
+	join_threads(params, philos);
 }

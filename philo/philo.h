@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 14:43:16 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:48:49 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ typedef struct s_params
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				eat_threshold;
-	struct timeval	start;
+	suseconds_t		start;
 }	t_params;
 
 typedef struct s_philo
 {
 	pthread_t		thread;
-	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	right_fork;
+	pthread_mutex_t	left_fork;
 }	t_philo;
 
 //init_params.c
@@ -49,7 +49,7 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_itoa(int n);
 
 //error.c
-void		free_philos(t_philo **philos);
+void		free_philos(t_philo **philos, t_params *params);
 
 //init_philos.c
 t_philo		**init_philos(t_params *params);
