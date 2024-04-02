@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:52:55 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 09:54:28 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/02 10:33:51 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,35 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	result = str_to_num((char *)str, i, is_neg);
+	return (result);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+	int		result;
+
+	i = 0;
+	result = 0;
+	if (n == 0)
+		return (result);
+	while ((s1[i] != '\0' && s2[i] != '\0') && i < (n - 1))
+	{
+		if (s1[i] == s2[i])
+			i++;
+		else
+			break ;
+	}
+	result = (unsigned char) s1[i] - (unsigned char) s2[i];
 	return (result);
 }

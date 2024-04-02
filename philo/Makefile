@@ -6,7 +6,7 @@
 #    By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/02 09:39:18 by skorbai           #+#    #+#              #
-#    Updated: 2024/04/02 09:56:13 by skorbai          ###   ########.fr        #
+#    Updated: 2024/04/02 10:29:47 by skorbai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ C_FLAGS = -Wall -Wextra -Werror
 
 SRCS = main.c \
 		init_params.c \
-		utils.c
+		utils.c \
+		ft_itoa.c
 
 OBJS = $(SRCS:.c=.o)
 

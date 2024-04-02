@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 09:55:15 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/02 10:34:08 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,10 @@ t_params	*init_params(int argc, char **argv);
 
 //utils.c
 int			ft_atoi(const char *str);
+size_t		ft_strlen(const char *s);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+
+//ft_itoa.c
+char		*ft_itoa(int n);
 
 #endif
