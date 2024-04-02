@@ -6,7 +6,7 @@
 #    By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/02 09:39:18 by skorbai           #+#    #+#              #
-#    Updated: 2024/04/02 10:29:47 by skorbai          ###   ########.fr        #
+#    Updated: 2024/04/02 13:14:18 by skorbai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ C_FLAGS = -Wall -Wextra -Werror
 SRCS = main.c \
 		init_params.c \
 		utils.c \
-		ft_itoa.c
+		ft_itoa.c \
+		init_philos.c \
+		error.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -40,6 +42,6 @@ re: fclean all
 tidymake: re clean
 
 san: $(OBJS)
-	cc $(C_FLAGS) -fsanitize=address -fsanitize=thread -g $(OBJS) -o san
+	cc $(C_FLAGS) -fsanitize=thread -g $(OBJS) -o san
 
 .PHONY: all clean fclean re tidymake san

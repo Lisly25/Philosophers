@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 09:29:54 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 13:07:52 by skorbai          ###   ########.fr       */
+/*   Created: 2024/04/02 13:10:57 by skorbai           #+#    #+#             */
+/*   Updated: 2024/04/02 13:13:37 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void	free_philos(t_philo **philos)
 {
-	t_params	*params;
-	t_philo		**philos;
+	int	i;
 
-	if (argc != 5 && argc != 6)
+	i = 0;
+	while (philos[i] != NULL)
 	{
-		printf("Error: number osf arguments must be 4 or 5\n");
-		return (1);
+		free(philos[i]);
+		i++;
 	}
-	params = init_params(argc, argv);
-	if (params == NULL)
-		return (1);
-	philos = init_philos(params);
-	if (philos == NULL)
-		return (1);
-	simulate(params, philos);
-	free(params);
-	free_philos(philos);
+	free(philos);
 }
