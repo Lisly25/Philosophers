@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:38:15 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 10:57:07 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/02 11:08:15 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	insert_param_to_struct(int arg, int i, t_params *params)
 
 static int	check_if_arg_is_valid(int arg, int i, t_params *params)
 {
-	int	result;
-
 	if (arg < 0)
 	{
 		printf("Error: arguments can't be negative numbers\n");
@@ -88,7 +86,7 @@ t_params	*init_params(int argc, char **argv)
 		printf("Error: malloc failure\n");
 		return (NULL);
 	}
-	i = 0;
+	i = 1;
 	while (i < argc)
 	{
 		if (init_param(i, argv[i], params) == -1)
