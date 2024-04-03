@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 10:07:11 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 10:51:05 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@
 
 static void	philo_cycle(t_params *params)
 {
-	struct timeval	current_time;
-	suseconds_t		time_elapsed;
-
-	gettimeofday(&current_time, NULL);
-	time_elapsed = (current_time.tv_usec - params->start) / 1000;
-	printf("Time since simulation start in microseconds: %d\n", time_elapsed);
+	
+	print_time(params);
 	return ;
 }
 
@@ -53,19 +49,14 @@ static int	init_locks(t_philo **philos, t_params *params)
 
 static int	init_threads(t_params *params, t_philo **philos)
 {
-	int	i;
+	int			i;
 
 	i = 0;
 	while (i < params->philo_count)
 	{
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)params) != 0)
-		{
-			destroy_mutexes(philos, i);
-			free_philos(philos, params);
-			free(params);
-			return (-1);
-		}
+			return (clean_strcts(philos, params, "Error: pthread_create\n", i));
 		i++;
 	}
 	return (0);

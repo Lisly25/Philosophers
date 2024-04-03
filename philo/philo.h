@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 09:51:08 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 10:46:08 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	own_fork;
 	pthread_mutex_t	*other_fork;
+	int				nro;
+	int				philo_count;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				eat_threshold;
+	suseconds_t		start;
 }	t_philo;
 
 //init_params.c
@@ -51,11 +58,15 @@ char		*ft_itoa(int n);
 //error.c
 void		free_philos(t_philo **philos, t_params *params);
 void		destroy_mutexes(t_philo **philos, int i);
+int			clean_strcts(t_philo **philos, t_params *params, char *str, int i);
 
 //init_philos.c
 t_philo		**init_philos(t_params *params);
 
 //simulate.c
 void		simulate(t_params *params, t_philo **philos);
+
+//log.c
+void		print_time(t_params *params);
 
 #endif
