@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 11:59:21 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 14:34:38 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 static void	philo_cycle(t_philo *philo)
 {
+	if (philo->philo_count == 1)
+	{
+		printf("For now, just print this and stop\n");
+		return ;
+	}
 	get_start_time(philo);
 	set_start_pattern(philo);
 	if (pthread_mutex_lock(&philo->own_fork) != 0)
@@ -29,8 +34,8 @@ static void	philo_cycle(t_philo *philo)
 	}
 	print_status(philo, "has taken a fork");
 	go_to_eat(philo);
-	pthread_mutex_unlock(&philo->own_fork);
 	pthread_mutex_unlock(philo->other_fork);
+	pthread_mutex_unlock(&philo->own_fork);
 	go_to_sleep(philo);
 	print_time(philo);
 	return ;
