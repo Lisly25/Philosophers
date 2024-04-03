@@ -6,16 +6,23 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 10:51:05 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 11:02:17 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	philo_cycle(t_params *params)
+static void	philo_cycle(t_philo *philo)
 {
-	
-	print_time(params);
+	struct timeval	start;
+
+	if (gettimeofday(&start, NULL) != 0)
+	{
+		free_(philo);
+		return ;
+	}
+	philo->start = start.tv_usec;
+	print_time(philo);
 	return ;
 }
 
@@ -55,7 +62,7 @@ static int	init_threads(t_params *params, t_philo **philos)
 	while (i < params->philo_count)
 	{
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
-		(void *)params) != 0)
+		(void *)philos[i]) != 0)
 			return (clean_strcts(philos, params, "Error: pthread_create\n", i));
 		i++;
 	}
@@ -76,17 +83,8 @@ static void	join_threads(t_params *params, t_philo **philos)
 
 void	simulate(t_params *params, t_philo **philos)
 {
-	struct timeval	start;
-
 	if (init_locks(philos, params) == -1)
 		return ;
-	if (gettimeofday(&start, NULL) != 0)
-	{
-		free_philos(philos, params);
-		free(params);
-		return ;
-	}
-	params->start = start.tv_usec;
 	if (init_threads(params, philos) == -1)
 		return ;
 	join_threads(params, philos);

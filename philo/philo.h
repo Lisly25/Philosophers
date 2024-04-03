@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 10:46:08 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 10:59:30 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_params
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				eat_threshold;
-	suseconds_t		start;
 }	t_params;
 
 typedef struct s_philo
