@@ -6,7 +6,7 @@
 #    By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/02 09:39:18 by skorbai           #+#    #+#              #
-#    Updated: 2024/04/03 11:26:03 by skorbai          ###   ########.fr        #
+#    Updated: 2024/04/03 14:13:49 by skorbai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,4 +51,4 @@ san: $(OBJS)
 thread: $(OBJS)
 	cc $(C_FLAGS) -fsanitize=thread -g $(OBJS) -o thread
 
-.PHONY: all clean fclean re tidymake san
+.PHONY: all clean fclean re tidymake san thread

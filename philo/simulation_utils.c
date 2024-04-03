@@ -6,22 +6,18 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 14:52:20 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 15:27:01 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	get_start_time(t_philo *philo)
+useconds_t	get_start_time(void)
 {
 	struct timeval	start;
 
-	if (gettimeofday(&start, NULL) != 0)
-	{
-		free(philo);
-		return ;
-	}
-	philo->start = start.tv_usec;
+	gettimeofday(&start, NULL);
+	return (start.tv_usec);
 }
 
 void	set_start_pattern(t_philo *philo)
@@ -52,7 +48,7 @@ void	go_to_eat(t_philo *philo)
 	eat_time = philo->time_to_eat * 1000;
 	i = 0;
 	print_status(philo, "is eating");
-	while (i != eat_time)
+	while (i < eat_time)
 	{
 		usleep(500);
 		i = i + 500;
@@ -67,7 +63,7 @@ void	go_to_sleep(t_philo *philo)
 	sleep_time = philo->time_to_sleep * 1000;
 	i = 0;
 	print_status(philo, "is sleeping");
-	while (i != sleep_time)
+	while (i < sleep_time)
 	{
 		usleep(500);
 		i = i + 500;

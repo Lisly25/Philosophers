@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 14:34:38 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 15:25:32 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	philo_cycle(t_philo *philo)
 		printf("For now, just print this and stop\n");
 		return ;
 	}
-	get_start_time(philo);
 	set_start_pattern(philo);
 	if (pthread_mutex_lock(&philo->own_fork) != 0)
 	{
@@ -37,7 +36,6 @@ static void	philo_cycle(t_philo *philo)
 	pthread_mutex_unlock(philo->other_fork);
 	pthread_mutex_unlock(&philo->own_fork);
 	go_to_sleep(philo);
-	print_time(philo);
 	return ;
 }
 
@@ -72,10 +70,13 @@ static int	init_locks(t_philo **philos, t_params *params)
 static int	init_threads(t_params *params, t_philo **philos)
 {
 	int			i;
+	useconds_t	start;
 
 	i = 0;
+	start = get_start_time();
 	while (i < params->philo_count)
 	{
+		philos[i]->start = start;
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)philos[i]) != 0)
 			return (clean_strcts(philos, params, "Error: pthread_create\n", i));
