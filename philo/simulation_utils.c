@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 15:41:29 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 16:21:10 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,27 @@ void	set_start_pattern(t_philo *philo)
 	}
 }
 
+static void	ft_sleep(useconds_t duration, t_philo *philo)
+{
+	useconds_t	elapsed_time;
+	useconds_t	elapsed_time_goal;
+
+	elapsed_time = get_elapsed_time(philo);
+	elapsed_time_goal = elapsed_time + duration;
+	while (elapsed_time < elapsed_time_goal)
+	{
+		usleep(500);
+		elapsed_time = get_elapsed_time(philo);
+	}
+}
+
 void	go_to_eat(t_philo *philo)
 {
 	useconds_t	eat_time;
 
 	eat_time = philo->time_to_eat * 1000;
 	print_status(philo, "is eating");
-	usleep(eat_time);
+	ft_sleep(eat_time, philo);
 }
 
 void	go_to_sleep(t_philo *philo)
@@ -55,5 +69,5 @@ void	go_to_sleep(t_philo *philo)
 
 	sleep_time = philo->time_to_sleep * 1000;
 	print_status(philo, "is sleeping");
-	usleep(sleep_time);
+	ft_sleep(sleep_time, philo);
 }
