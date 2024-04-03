@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 11:02:17 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 11:08:34 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	philo_cycle(t_philo *philo)
 
 	if (gettimeofday(&start, NULL) != 0)
 	{
-		free_(philo);
+		free(philo);
 		return ;
 	}
 	philo->start = start.tv_usec;
