@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 15:25:32 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 15:43:29 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	philo_cycle(t_philo *philo)
 {
+	usleep(1);
 	if (philo->philo_count == 1)
 	{
 		printf("For now, just print this and stop\n");
