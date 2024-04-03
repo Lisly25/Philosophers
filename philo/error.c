@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:10:57 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 10:28:56 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 11:07:47 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	clean_strcts(t_philo **philos, t_params *params, char *error, int i)
 {
-	printf(error);
+	printf("%s", error);
 	destroy_mutexes(philos, i);
 	free_philos(philos, params);
 	free(params);
