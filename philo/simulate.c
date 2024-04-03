@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 16:20:14 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 10:07:11 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,23 @@ static int	init_locks(t_philo **philos, t_params *params)
 	i = 0;
 	while (i < params->philo_count)
 	{
-		if (pthread_mutex_init(&philos[i]->left_fork, NULL) != 0)
-		{
-			free_philos(philos, params);
-			free(params);
-			return (-1);
-		}
-		if (pthread_mutex_init(&philos[i]->right_fork, NULL) != 0)
+		if (pthread_mutex_init(&philos[i]->own_fork, NULL) != 0)
 		{
 			free_philos(philos, params);
 			free(params);
 			return (-1);
 		}
 		i++;
+	}
+	if (params->philo_count > 1)
+		philos[0]->other_fork = &(philos[params->philo_count - 1]->own_fork);
+	else
+		philos[0]->other_fork = NULL;
+	i = params->philo_count - 1;
+	while (i > 0)
+	{
+		philos[i]->other_fork = &(philos[i - 1]->own_fork);
+		i--;
 	}
 	return (0);
 }
@@ -57,7 +61,7 @@ static int	init_threads(t_params *params, t_philo **philos)
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)params) != 0)
 		{
-			//destroy_locks(philos, i);
+			destroy_mutexes(philos, i);
 			free_philos(philos, params);
 			free(params);
 			return (-1);

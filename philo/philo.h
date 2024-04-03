@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 15:48:49 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 09:51:08 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct s_params
 typedef struct s_philo
 {
 	pthread_t		thread;
-	pthread_mutex_t	right_fork;
-	pthread_mutex_t	left_fork;
+	pthread_mutex_t	own_fork;
+	pthread_mutex_t	*other_fork;
 }	t_philo;
 
 //init_params.c
@@ -50,6 +50,7 @@ char		*ft_itoa(int n);
 
 //error.c
 void		free_philos(t_philo **philos, t_params *params);
+void		destroy_mutexes(t_philo **philos, int i);
 
 //init_philos.c
 t_philo		**init_philos(t_params *params);
