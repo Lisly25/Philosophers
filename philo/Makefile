@@ -6,7 +6,7 @@
 #    By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/02 09:39:18 by skorbai           #+#    #+#              #
-#    Updated: 2024/04/03 10:13:46 by skorbai          ###   ########.fr        #
+#    Updated: 2024/04/03 11:26:03 by skorbai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRCS = main.c \
 		init_philos.c \
 		error.c \
 		simulate.c \
-		log.c
+		log.c \
+		simulation_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
