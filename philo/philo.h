@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 11:41:08 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 12:04:25 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,12 @@ void		simulate(t_params *params, t_philo **philos);
 
 //log.c
 void		print_time(t_philo *philo);
+void		print_status(t_philo *philo, char *message);
 
 //simulation_utils.c
 void		get_start_time(t_philo *philo);
 void		set_start_pattern(t_philo *philo);
+void		go_to_sleep(t_philo *philo);
+void		go_to_eat(t_philo *philo);
 
 #endif

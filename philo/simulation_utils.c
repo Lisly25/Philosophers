@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 11:38:01 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 12:12:45 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,35 @@ void	set_start_pattern(t_philo *philo)
 			usleep(1);
 		else
 			return ;
+	}
+}
+
+void	go_to_eat(t_philo *philo)
+{
+	useconds_t	eat_time;
+	useconds_t	i;
+
+	eat_time = philo->time_to_eat * 1000;
+	i = 0;
+	print_status(philo, "is eating");
+	while (i != eat_time)
+	{
+		usleep(500);
+		i += 500;
+	}
+}
+
+void	go_to_sleep(t_philo *philo)
+{
+	useconds_t	sleep_time;
+	useconds_t	i;
+
+	sleep_time = philo->time_to_sleep * 1000;
+	i = 0;
+	print_status(philo, "is eating");
+	while (i != sleep_time)
+	{
+		usleep(500);
+		i += 500;
 	}
 }

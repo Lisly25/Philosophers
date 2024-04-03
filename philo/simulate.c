@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 11:08:34 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/03 11:59:21 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,24 @@
 
 static void	philo_cycle(t_philo *philo)
 {
-	struct timeval	start;
-
-	if (gettimeofday(&start, NULL) != 0)
+	get_start_time(philo);
+	set_start_pattern(philo);
+	if (pthread_mutex_lock(&philo->own_fork) != 0)
 	{
-		free(philo);
+		printf("Mutex_lock_failed\n");
 		return ;
 	}
-	philo->start = start.tv_usec;
+	print_status(philo, "has taken a fork");
+	if (pthread_mutex_lock(philo->other_fork) != 0)
+	{
+		printf("Mutex_lock_failed\n");
+		return ;
+	}
+	print_status(philo, "has taken a fork");
+	go_to_eat(philo);
+	pthread_mutex_unlock(&philo->own_fork);
+	pthread_mutex_unlock(philo->other_fork);
+	go_to_sleep(philo);
 	print_time(philo);
 	return ;
 }
