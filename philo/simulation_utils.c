@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/04 12:53:17 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:50:49 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	set_start_pattern(t_philo *philo)
 	}
 }
 
-static void	ft_sleep(useconds_t duration, t_philo *philo)
+void	ft_sleep(useconds_t duration, t_philo *philo)
 {
 	useconds_t	elapsed_time;
 	useconds_t	elapsed_time_goal;
@@ -53,49 +53,68 @@ void	go_to_eat(t_philo *philo)
 	eat_time = philo->time_to_eat;
 	print_status(philo, "is eating");
 	philo->last_meal = get_elapsed_time(philo);
+	if (philo->need_to_die == 1)
+	{
+		wait_and_die(philo);
+		return ;
+	}
 	ft_sleep(eat_time, philo);
+	return ;
 }
 
-void	go_to_sleep(t_philo *philo)
+int	go_to_sleep(t_philo *philo)
 {
 	useconds_t	sleep_time;
 
 	sleep_time = philo->time_to_sleep;
+	check_for_dying(philo, 2);
 	print_status(philo, "is sleeping");
+	if (philo->need_to_die == 1)
+	{
+		wait_and_die(philo);
+		return (1);
+	}
 	ft_sleep(sleep_time, philo);
+	print_status(philo, "is thinking");
+	return (0);
 }
 
-int	die_if_needed(t_philo *philo)//returns 1 if philo would die before finishing to eat - BUT it should still start eating, it should just not finish!
+void	check_for_dying(t_philo *philo, int mode)
 {
 	useconds_t	time_elapsed;
 	useconds_t	time_since_last_meal;
-	useconds_t	max_lifetime;
+	useconds_t	logtime_to_finish_at;
 
 	time_elapsed = get_elapsed_time(philo);
 	time_since_last_meal = time_elapsed - philo->last_meal;
-	max_lifetime = philo->time_to_eat + time_since_last_meal;
-	if (max_lifetime < philo->time_to_die)
-		return (1);
-	return (0);
-}//we probably also want to check if it's time to die during the sleeping time!
+	logtime_to_finish_at = time_since_last_meal + philo->time_to_eat;
+	if (mode == 2)
+		logtime_to_finish_at = logtime_to_finish_at + philo->time_to_sleep;
+	if (logtime_to_finish_at > (useconds_t)philo->time_to_die)
+		philo->need_to_die = 1;
+	else if (logtime_to_finish_at == (useconds_t)philo->time_to_die)
+		philo->need_to_die = -1;
+	else
+		philo->need_to_die = 0;
+}
 
 /*
 Notes:
 
 last meal - at 30 ms elapsed
 
-Current time: 60 ms elapsed
+Current time: 70 ms elapsed
 
-time to die: 200
+time to die: 80
 
-time to eat: 60
+time to eat: 30
 
 time to sleep: 60
 
 can we survive till we can eat again?
 
-time since last meal: current time - last meal = 30
+time since last meal: current time - last meal = 40
 
-if we started eating now we'd be done in: 30 + 30 = 60 ms from now - well under 200
+if we started eating now we'd be done in: 40 + 30 = 70 ms from now - eat would be finished, but we'd die while sleeping
 
 */
