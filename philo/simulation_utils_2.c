@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/04 15:50:58 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:54:49 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	try_to_get_fork_and_die(t_philo *philo)
 		return ;
 	}
 	print_status(philo, "has taken a fork");
+	go_to_eat(philo);
 	pthread_mutex_unlock(philo->other_fork);
 	pthread_mutex_unlock(&philo->own_fork);
-	go_to_eat(philo);
 }
 
 void	wait_for_fork(t_philo *philo)
