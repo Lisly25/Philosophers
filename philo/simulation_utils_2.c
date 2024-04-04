@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/04 15:54:49 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:37:00 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,21 @@ void	wait_and_die(t_philo *philo)
 	useconds_t	time_elapsed;
 
 	time_elapsed = get_elapsed_time(philo);
-	time_remaining = philo->time_to_die - (time_elapsed - philo->last_meal);
+	if (philo->last_meal != 0)
+		time_remaining = philo->time_to_die - (time_elapsed - philo->last_meal);
+	else
+		time_remaining = philo->time_to_die - time_elapsed;
 	ft_sleep(time_remaining, philo);
 	print_status(philo, "is dead");
 }
 
 void	try_to_get_fork_and_die(t_philo *philo)
 {
-	if (philo->need_to_die == -1)
-		return (wait_and_die(philo));
+	if (philo->time_to_die <= philo->time_to_eat && philo->nro % 2 != 0)
+	{
+		wait_and_die(philo);
+		return ;
+	}
 	if (pthread_mutex_lock(&philo->own_fork) != 0)
 	{
 		printf("Mutex_lock_failed\n");
