@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/04 12:51:47 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/04 12:53:17 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	die_if_needed(t_philo *philo)//returns 1 if philo would die before finishing
 	if (max_lifetime < philo->time_to_die)
 		return (1);
 	return (0);
-}
+}//we probably also want to check if it's time to die during the sleeping time!
 
 /*
 Notes:
