@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 15:43:29 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/04 09:58:45 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,15 @@ static int	init_locks(t_philo **philos, t_params *params)
 
 static int	init_threads(t_params *params, t_philo **philos)
 {
-	int			i;
-	useconds_t	start;
+	int				i;
+	struct timeval	start;
 
 	i = 0;
-	start = get_start_time();
+	gettimeofday(&start, NULL);//should I error check this?
 	while (i < params->philo_count)
 	{
-		philos[i]->start = start;
+		philos[i]->start_sec = start.tv_sec;
+		philos[i]->start_usec = start.tv_usec;
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)philos[i]) != 0)
 			return (clean_strcts(philos, params, "Error: pthread_create\n", i));

@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 16:18:27 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/04 09:59:03 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ typedef struct s_philo
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				eat_threshold;
-	useconds_t		start;
+	useconds_t		start_usec;
+	time_t			start_sec;
 }	t_philo;
 
 //init_params.c
@@ -71,7 +72,6 @@ useconds_t	get_elapsed_time(t_philo *philo);
 void		print_status(t_philo *philo, char *message);
 
 //simulation_utils.c
-useconds_t	get_start_time(void);
 void		set_start_pattern(t_philo *philo);
 void		go_to_sleep(t_philo *philo);
 void		go_to_eat(t_philo *philo);

@@ -6,19 +6,11 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 16:21:10 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/04 10:51:40 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-useconds_t	get_start_time(void)
-{
-	struct timeval	start;
-
-	gettimeofday(&start, NULL);
-	return (start.tv_usec);
-}
 
 void	set_start_pattern(t_philo *philo)
 {
@@ -27,16 +19,16 @@ void	set_start_pattern(t_philo *philo)
 		if (philo->nro % 2 == 0)
 			return ;
 		else
-			usleep(100);
+			usleep(1000);
 	}
 	else
 	{
 		if (philo->nro == 0)
-			usleep(200);
+			usleep(2000);
 		else if (philo->nro % 2 == 0)
 			return ;
 		else
-			usleep(100);
+			usleep(1000);
 	}
 }
 
@@ -47,10 +39,12 @@ static void	ft_sleep(useconds_t duration, t_philo *philo)
 
 	elapsed_time = get_elapsed_time(philo);
 	elapsed_time_goal = elapsed_time + duration;
+	printf("Elapsed time goal: %u\n", elapsed_time_goal);
 	while (elapsed_time < elapsed_time_goal)
 	{
 		usleep(500);
 		elapsed_time = get_elapsed_time(philo);
+		printf("Elapsed time: %u\n", elapsed_time);
 	}
 }
 
