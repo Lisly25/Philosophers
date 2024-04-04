@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/04 09:58:45 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/04 12:26:11 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	philo_cycle(t_philo *philo)
 	pthread_mutex_unlock(philo->other_fork);
 	pthread_mutex_unlock(&philo->own_fork);
 	go_to_sleep(philo);
+	print_status(philo, "is thinking");
 	return ;
 }
 

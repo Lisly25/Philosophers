@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/04 09:59:03 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/04 12:24:13 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_philo
 	int				eat_threshold;
 	useconds_t		start_usec;
 	time_t			start_sec;
+	useconds_t		last_meal;
 }	t_philo;
 
 //init_params.c
