@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 10:24:03 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 12:22:28 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ typedef struct s_philo
 	int				time_to_sleep;
 	int				eat_threshold;
 	int				need_to_die;
+	int				kill_signal;
 	useconds_t		start_usec;
 	time_t			start_sec;
 	useconds_t		last_meal;
+	pthread_mutex_t	*death_flag;
 }	t_philo;
 
 //init_params.c
@@ -76,14 +78,18 @@ void		print_status(t_philo *philo, char *message);
 //simulation_utils.c
 void		set_start_pattern(t_philo *philo);
 int			go_to_sleep(t_philo *philo);
-void		go_to_eat(t_philo *philo);
+int			go_to_eat(t_philo *philo);
 void		check_for_dying(t_philo *philo, int mode);
 void		ft_sleep(useconds_t duration, t_philo *philo);
 
 //simulation_utils_2.c
 void		wait_and_die(t_philo *philo);
 void		try_to_get_fork_and_die(t_philo *philo);
-void		wait_for_fork(t_philo *philo);
+int			wait_for_fork(t_philo *philo);
 int			check_if_philo_starts_in_2nd_wave(t_philo *philo);
+int			check_kill_flag(t_philo *philo);
+
+//simulation_utils_3.c
+int			set_death_flag(t_philo *philo);
 
 #endif

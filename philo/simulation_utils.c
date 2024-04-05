@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 10:12:45 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 12:21:30 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	set_start_pattern(t_philo *philo)
 	}
 }
 
-void	ft_sleep(useconds_t duration, t_philo *philo)
+void	ft_sleep(useconds_t duration, t_philo *philo)//will need to check how much the simulation would be slowed by checking for the death flag every loop
 {
 	useconds_t	elapsed_time;
 	useconds_t	elapsed_time_goal;
@@ -46,20 +46,22 @@ void	ft_sleep(useconds_t duration, t_philo *philo)
 	}
 }
 
-void	go_to_eat(t_philo *philo)
+int	go_to_eat(t_philo *philo)
 {
 	useconds_t	eat_time;
 
 	eat_time = philo->time_to_eat;
+	if (check_kill_flag(philo) == 1)
+		return (1);
 	print_status(philo, "is eating");
 	philo->last_meal = get_elapsed_time(philo);
 	if (philo->need_to_die == 1)
 	{
 		wait_and_die(philo);
-		return ;
+		return (1);
 	}
 	ft_sleep(eat_time, philo);
-	return ;
+	return (0);
 }
 
 int	go_to_sleep(t_philo *philo)
@@ -67,6 +69,8 @@ int	go_to_sleep(t_philo *philo)
 	useconds_t	sleep_time;
 
 	sleep_time = philo->time_to_sleep;
+	if (check_kill_flag(philo) == 1)
+		return (1);
 	check_for_dying(philo, 2);
 	print_status(philo, "is sleeping");
 	if (philo->need_to_die == 1)
@@ -75,6 +79,8 @@ int	go_to_sleep(t_philo *philo)
 		return (1);
 	}
 	ft_sleep(sleep_time, philo);
+	if (check_kill_flag(philo) == 1)
+		return (1);
 	print_status(philo, "is thinking");
 	return (0);
 }

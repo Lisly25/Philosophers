@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 10:38:06 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 12:48:35 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,21 @@ static void	philo_cycle(t_philo *philo)
 		return ;
 	}
 	set_start_pattern(philo);
-	check_for_dying(philo, 1);
-	if (philo->need_to_die == 1 || (philo->need_to_die == -1 && \
-	check_if_philo_starts_in_2nd_wave(philo) == 1))
+	while (1)
 	{
-		printf("Thread that was here: %d\n", philo->nro + 1);
-		return (try_to_get_fork_and_die(philo));
+		check_for_dying(philo, 1);
+		if (philo->need_to_die == 1 || (philo->need_to_die == -1 && \
+		check_if_philo_starts_in_2nd_wave(philo) == 1))
+		{
+			try_to_get_fork_and_die(philo);
+			return ;
+		}
+		else
+			if (wait_for_fork(philo) != 0)
+				return ;
+		if (go_to_sleep(philo) != 0)
+			return ;
 	}
-	else
-		wait_for_fork(philo);
-	go_to_sleep(philo);
-	return ;
 }
 
 static int	init_locks(t_philo **philos, t_params *params)
@@ -66,18 +70,26 @@ static int	init_threads(t_params *params, t_philo **philos)
 {
 	int				i;
 	struct timeval	start;
+	pthread_mutex_t	death_flag;
 
 	i = 0;
+	if (pthread_mutex_init(&death_flag, NULL) != 0)
+		return (clean_strcts(philos, params, "Error: pthread_mutex_init\n", i));
 	gettimeofday(&start, NULL);//should I error check this?
 	while (i < params->philo_count)
 	{
 		philos[i]->start_sec = start.tv_sec;
 		philos[i]->start_usec = start.tv_usec;
+		philos[i]->death_flag = &death_flag;
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)philos[i]) != 0)
+		{
+			pthread_mutex_destroy(&death_flag);
 			return (clean_strcts(philos, params, "Error: pthread_create\n", i));
+		}
 		i++;
 	}
+	pthread_mutex_destroy(&death_flag);
 	return (0);
 }
 
