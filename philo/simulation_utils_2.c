@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/04 16:37:00 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 10:25:49 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,40 @@ void	wait_and_die(t_philo *philo)
 	print_status(philo, "is dead");
 }
 
+int	check_if_philo_starts_in_2nd_wave(t_philo *philo)
+{
+	if (philo->philo_count % 2 == 0)
+	{
+		if (philo->nro % 2 == 0)
+			return (0);
+		else
+			return (1);
+	}
+	else
+	{
+		if (philo->nro == 0)
+			return (1);
+		else if (philo->nro % 2 == 0)
+			return (0);
+		else
+			return (1);
+	}
+}
+
 void	try_to_get_fork_and_die(t_philo *philo)
 {
-	if (philo->time_to_die <= philo->time_to_eat && philo->nro % 2 != 0)
+	if (philo->time_to_die >= philo->time_to_eat)
 	{
-		wait_and_die(philo);
-		return ;
+		if (check_if_philo_starts_in_2nd_wave(philo) == 1)
+			return (wait_and_die(philo));
 	}
+	//else if (philo->time_to_die == philo->time_to_eat)
+	//{
+	//	if (check_if_philo_starts_in_2nd_wave(philo) == 1)
+	//		return (wait_and_die(philo));
+	//	else
+	//		(wait_for_fork(philo));
+	//}
 	if (pthread_mutex_lock(&philo->own_fork) != 0)
 	{
 		printf("Mutex_lock_failed\n");

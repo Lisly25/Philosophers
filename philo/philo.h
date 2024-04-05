@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/04 15:25:23 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 10:24:03 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void		ft_sleep(useconds_t duration, t_philo *philo);
 void		wait_and_die(t_philo *philo);
 void		try_to_get_fork_and_die(t_philo *philo);
 void		wait_for_fork(t_philo *philo);
+int			check_if_philo_starts_in_2nd_wave(t_philo *philo);
 
 #endif

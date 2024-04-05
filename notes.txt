@@ -126,3 +126,22 @@ The pthread_join() function waits for the thread specified by
 
 On success, pthread_join() returns 0; on error, it returns an
        error number.
+
+
+TEST CASES:
+
+1. Incorret number of args (not 3 or 4)
+
+2. Non-numeric args
+
+3. negative arg values
+
+4. args with value 0 (except for optional arg - that is still valid)
+
+5. arg value greater than int max
+
+6. Odd number of philos (even num works more smoothly based on the algo)
+
+7. Time to die is less than time to eat ==> all philos should die before finishing eating/even starting to sleep
+
+8. 
