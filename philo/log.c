@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:30:09 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/04 12:10:11 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:15:09 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void	print_status(t_philo *philo, char *message)
 {
 	useconds_t	time_elapsed;
 
+	if (pthread_mutex_lock(philo->print_flag) != 0)
+	{
+		printf("Error: pthread_mutex_lock\n");//should I use write() so that it feels less pointless?
+		return ;
+	}
 	time_elapsed = get_elapsed_time(philo);
 	printf("%ums: %d %s\n", time_elapsed, philo->nro + 1, message);
+	pthread_mutex_unlock(philo->print_flag);
 }

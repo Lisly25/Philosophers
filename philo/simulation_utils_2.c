@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 14:35:02 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:06:09 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	wait_and_die(t_philo *philo)
 	else
 		time_remaining = philo->time_to_die - time_elapsed;
 	ft_sleep(time_remaining, philo);
+	if (check_kill_flag(philo) == 1)
+		return ;
 	print_status(philo, "is dead");
 	set_death_flag(philo);
 }

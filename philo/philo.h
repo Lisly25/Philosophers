@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 14:32:57 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:09:24 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_philo
 	pthread_mutex_t	*other_fork;
 	pthread_mutex_t	death_monitor;
 	pthread_mutex_t	*death_flag;
+	pthread_mutex_t	print_monitor;
+	pthread_mutex_t	*print_flag;
 	int				nro;
 	int				philo_count;
 	int				time_to_die;
