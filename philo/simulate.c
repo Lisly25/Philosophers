@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 15:11:38 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:43:37 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	philo_cycle(t_philo *philo)
 		check_if_philo_starts_in_2nd_wave(philo) == 1))
 		{
 			try_to_get_fork_and_die(philo);
+			printf("Kill flag status after setting: %d\n", *(philo->kill_signal));
 			return ;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 12:21:30 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:35:25 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	go_to_sleep(t_philo *philo)
 	if (check_kill_flag(philo) == 1)
 		return (1);
 	check_for_dying(philo, 2);
+	if (check_kill_flag(philo) == 1)
+		return (1);
 	print_status(philo, "is sleeping");
 	if (philo->need_to_die == 1)
 	{
@@ -98,29 +100,8 @@ void	check_for_dying(t_philo *philo, int mode)
 		logtime_to_finish_at = time_since_last_meal + philo->time_to_sleep;
 	if (logtime_to_finish_at > (useconds_t)philo->time_to_die)
 		philo->need_to_die = 1;
-	else if (logtime_to_finish_at == (useconds_t)(philo->time_to_die))
+	else if (logtime_to_finish_at == (useconds_t)philo->time_to_die)
 		philo->need_to_die = -1;
 	else
 		philo->need_to_die = 0;
 }
-
-/*
-Notes:
-
-last meal - at 30 ms elapsed
-
-Current time: 70 ms elapsed
-
-time to die: 80
-
-time to eat: 30
-
-time to sleep: 60
-
-can we survive till we can eat again?
-
-time since last meal: current time - last meal = 40
-
-if we started eating now we'd be done in: 40 + 30 = 70 ms from now - eat would be finished, but we'd die while sleeping
-
-*/
