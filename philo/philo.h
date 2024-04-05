@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 12:22:28 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 14:32:57 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	own_fork;
 	pthread_mutex_t	*other_fork;
+	pthread_mutex_t	death_monitor;
+	pthread_mutex_t	*death_flag;
 	int				nro;
 	int				philo_count;
 	int				time_to_die;
@@ -42,11 +44,11 @@ typedef struct s_philo
 	int				time_to_sleep;
 	int				eat_threshold;
 	int				need_to_die;
-	int				kill_signal;
+	int				*kill_signal;
+	int				kill_all;
 	useconds_t		start_usec;
 	time_t			start_sec;
 	useconds_t		last_meal;
-	pthread_mutex_t	*death_flag;
 }	t_philo;
 
 //init_params.c

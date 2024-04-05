@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 12:33:04 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 14:35:02 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,17 @@ int	wait_for_fork(t_philo *philo)
 
 int	check_kill_flag(t_philo *philo)
 {
+	int	result;
+
 	if (pthread_mutex_lock(philo->death_flag) != 0)
 	{
 		printf("Mutex_lock_failed - death flag\n");
 		return (-1);
 	}
-	if (philo->kill_signal == 1)
-		return (1);
+	if (*(philo->kill_signal) == 1)
+		result = 1;
 	else
-		return (0);
+		result = 2;
 	pthread_mutex_unlock(philo->death_flag);
+	return (result);
 }

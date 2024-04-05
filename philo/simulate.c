@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 12:48:35 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/05 14:33:02 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,20 @@ static int	init_threads(t_params *params, t_philo **philos)
 {
 	int				i;
 	struct timeval	start;
-	pthread_mutex_t	death_flag;
 
 	i = 0;
-	if (pthread_mutex_init(&death_flag, NULL) != 0)
-		return (clean_strcts(philos, params, "Error: pthread_mutex_init\n", i));
 	gettimeofday(&start, NULL);//should I error check this?
 	while (i < params->philo_count)
 	{
 		philos[i]->start_sec = start.tv_sec;
 		philos[i]->start_usec = start.tv_usec;
-		philos[i]->death_flag = &death_flag;
+		philos[i]->death_flag = &(philos[0]->death_monitor);
+		philos[i]->kill_signal = &(philos[0]->kill_all);
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)philos[i]) != 0)
-		{
-			pthread_mutex_destroy(&death_flag);
 			return (clean_strcts(philos, params, "Error: pthread_create\n", i));
-		}
 		i++;
 	}
-	pthread_mutex_destroy(&death_flag);
 	return (0);
 }
 
@@ -109,6 +103,13 @@ void	simulate(t_params *params, t_philo **philos)
 {
 	if (init_locks(philos, params) == -1)
 		return ;
+	if (pthread_mutex_init(&philos[0]->death_monitor, NULL) != 0)
+	{
+		printf("Error: pthread_mutex_init\n");
+		free_philos(philos, params);
+		free(params);
+		return ;
+	}
 	if (init_threads(params, philos) == -1)
 		return ;
 	join_threads(params, philos);
