@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 15:35:25 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 10:16:50 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ int	go_to_eat(t_philo *philo)
 
 	eat_time = philo->time_to_eat;
 	if (check_kill_flag(philo) == 1)
+	{
+		pthread_mutex_unlock(&philo->own_fork);
+		pthread_mutex_unlock(philo->other_fork);
 		return (1);
+	}
 	print_status(philo, "is eating");
 	philo->last_meal = get_elapsed_time(philo);
 	if (philo->need_to_die == 1)
