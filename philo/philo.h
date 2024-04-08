@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 11:23:23 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:36:18 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_params
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				eat_threshold;
+	pthread_mutex_t	death_monitor;
+	pthread_mutex_t	print_monitor;
 }	t_params;
 
 typedef struct s_philo
@@ -35,9 +37,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	own_fork;
 	pthread_mutex_t	*other_fork;
-	pthread_mutex_t	death_monitor;
 	pthread_mutex_t	*death_flag;
-	pthread_mutex_t	print_monitor;
 	pthread_mutex_t	*print_flag;
 	int				nro;
 	int				philo_count;
@@ -66,9 +66,10 @@ char		*ft_itoa(int n);
 
 //error.c
 void		free_philos(t_philo **philos, t_params *params);
-void		destroy_mutexes(t_philo **philos, int i);
+void		destroy_mutexes(t_philo **philos, int i, t_params *params);
 int			clean_strcts(t_philo **philos, t_params *params, char *str, int i);
 int			print_error_and_return_1(char *msg, t_philo *philo, int lock_nr);
+void		print_error(char *msg, t_philo *philo, int lock_nr);
 
 //init_philos.c
 t_philo		**init_philos(t_params *params);

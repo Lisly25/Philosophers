@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 15:43:37 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:31:32 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	philo_cycle(t_philo *philo)
 		check_if_philo_starts_in_2nd_wave(philo) == 1))
 		{
 			try_to_get_fork_and_die(philo);
-			printf("Kill flag status after setting: %d\n", *(philo->kill_signal));
 			return ;
 		}
 		else
@@ -78,9 +77,9 @@ static int	init_threads(t_params *params, t_philo **philos)
 	{
 		philos[i]->start_sec = start.tv_sec;
 		philos[i]->start_usec = start.tv_usec;
-		philos[i]->death_flag = &(philos[0]->death_monitor);
+		philos[i]->death_flag = &(params->death_monitor);
 		philos[i]->kill_signal = &(philos[0]->kill_all);
-		philos[i]->print_flag = &(philos[0]->print_monitor);
+		philos[i]->print_flag = &(params->print_monitor);
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)philos[i]) != 0)
 			return (clean_strcts(philos, params, "Error: pthread_create\n", i));
@@ -105,14 +104,14 @@ void	simulate(t_params *params, t_philo **philos)
 {
 	if (init_locks(philos, params) == -1)
 		return ;
-	if (pthread_mutex_init(&philos[0]->death_monitor, NULL) != 0)
+	if (pthread_mutex_init(&params->death_monitor, NULL) != 0)
 	{
 		printf("Error: pthread_mutex_init\n");
 		free_philos(philos, params);
 		free(params);
 		return ;
 	}
-	if (pthread_mutex_init(&philos[0]->print_monitor, NULL) != 0)
+	if (pthread_mutex_init(&params->print_monitor, NULL) != 0)
 	{
 		printf("Error: pthread_mutex_init\n");
 		free_philos(philos, params);
