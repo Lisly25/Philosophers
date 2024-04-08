@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 11:24:15 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:36:40 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	try_to_get_fork_and_die(t_philo *philo)
 			return (wait_and_die(philo));
 	}
 	if (pthread_mutex_lock(&philo->own_fork) != 0)
-		return (print_error_and_return_1("Mutex_lock failed", philo, 1));
+		return (print_error("Mutex_lock failed", philo, 1));
 	if (check_kill_flag(philo) == 1)
 	{
 		pthread_mutex_unlock(&philo->own_fork);
@@ -70,7 +70,7 @@ void	try_to_get_fork_and_die(t_philo *philo)
 	}
 	print_status(philo, "has taken a fork");
 	if (pthread_mutex_lock(philo->other_fork) != 0)
-		return (print_error_and_return_1("Mutex_lock failed", philo, 2));
+		return (print_error("Mutex_lock failed", philo, 2));
 	if (check_kill_flag(philo) == 1)
 		return (unlock_both_forks(philo));
 	print_status(philo, "has taken a fork");
