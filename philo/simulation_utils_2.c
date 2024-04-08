@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 10:33:40 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 10:39:28 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	wait_and_die(t_philo *philo)
 	ft_sleep(time_remaining, philo);
 	if (check_kill_flag(philo) == 1)
 		return ;
-	print_status(philo, "is dead");
 	set_death_flag(philo);
+	print_status(philo, "is dead");
 }
 
 int	check_if_philo_starts_in_2nd_wave(t_philo *philo)
@@ -49,7 +49,6 @@ int	check_if_philo_starts_in_2nd_wave(t_philo *philo)
 		else
 			result = 1;
 	}
-	printf("Check is starts in 2nd wave result: %d\n", result);
 	return (result);
 }
 
@@ -139,5 +138,6 @@ int	check_kill_flag(t_philo *philo)
 	else
 		result = 0;
 	pthread_mutex_unlock(philo->death_flag);
+	//printf("Kill flag status: %d\n", result);
 	return (result);
 }
