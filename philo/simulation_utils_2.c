@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 10:39:28 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:24:15 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ void	try_to_get_fork_and_die(t_philo *philo)
 			return (wait_and_die(philo));
 	}
 	if (pthread_mutex_lock(&philo->own_fork) != 0)
-	{
-		printf("Mutex_lock_failed\n");
-		return ;
-	}
+		return (print_error_and_return_1("Mutex_lock failed", philo, 1));
 	if (check_kill_flag(philo) == 1)
 	{
 		pthread_mutex_unlock(&philo->own_fork);
@@ -73,21 +70,13 @@ void	try_to_get_fork_and_die(t_philo *philo)
 	}
 	print_status(philo, "has taken a fork");
 	if (pthread_mutex_lock(philo->other_fork) != 0)
-	{
-		printf("Mutex_lock_failed\n");
-		return ;
-	}
+		return (print_error_and_return_1("Mutex_lock failed", philo, 2));
 	if (check_kill_flag(philo) == 1)
-	{
-		pthread_mutex_unlock(philo->other_fork);
-		pthread_mutex_unlock(&philo->own_fork);
-		return ;
-	}
+		return (unlock_both_forks(philo));
 	print_status(philo, "has taken a fork");
 	if (go_to_eat(philo) == 1)
 		return ;
-	pthread_mutex_unlock(philo->other_fork);
-	pthread_mutex_unlock(&philo->own_fork);
+	unlock_both_forks(philo);
 }
 
 int	wait_for_fork(t_philo *philo)
@@ -95,10 +84,7 @@ int	wait_for_fork(t_philo *philo)
 	if (check_kill_flag(philo) == 1)
 		return (1);
 	if (pthread_mutex_lock(&philo->own_fork) != 0)
-	{
-		printf("Mutex_lock_failed\n");
-		return (1);
-	}
+		return (print_error_and_return_1("Mutex_lock failed", philo, 1));
 	if (check_kill_flag(philo) == 1)
 	{
 		pthread_mutex_unlock(&philo->own_fork);
@@ -106,10 +92,7 @@ int	wait_for_fork(t_philo *philo)
 	}
 	print_status(philo, "has taken a fork");
 	if (pthread_mutex_lock(philo->other_fork) != 0)
-	{
-		printf("Mutex_lock_failed\n");
-		return (1);
-	}
+		return (print_error_and_return_1("Mutex_lock failed", philo, 2));
 	if (check_kill_flag(philo) == 1)
 	{
 		pthread_mutex_unlock(philo->other_fork);
@@ -119,8 +102,7 @@ int	wait_for_fork(t_philo *philo)
 	print_status(philo, "has taken a fork");
 	if (go_to_eat(philo) == 1)
 		return (1);
-	pthread_mutex_unlock(philo->other_fork);
-	pthread_mutex_unlock(&philo->own_fork);
+	unlock_both_forks(philo);
 	return (0);
 }
 

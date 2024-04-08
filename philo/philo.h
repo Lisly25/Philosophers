@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 15:09:24 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:23:23 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char		*ft_itoa(int n);
 void		free_philos(t_philo **philos, t_params *params);
 void		destroy_mutexes(t_philo **philos, int i);
 int			clean_strcts(t_philo **philos, t_params *params, char *str, int i);
+int			print_error_and_return_1(char *msg, t_philo *philo, int lock_nr);
 
 //init_philos.c
 t_philo		**init_philos(t_params *params);
@@ -95,5 +96,6 @@ int			check_kill_flag(t_philo *philo);
 
 //simulation_utils_3.c
 int			set_death_flag(t_philo *philo);
+void		unlock_both_forks(t_philo *philo);
 
 #endif

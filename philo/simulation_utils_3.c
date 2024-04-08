@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:56:27 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/05 15:40:18 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:23:08 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,10 @@ int	set_death_flag(t_philo *philo)
 	*(philo->kill_signal) = 1;
 	pthread_mutex_unlock(philo->death_flag);
 	return (0);
+}
+
+void	unlock_both_forks(t_philo *philo)
+{
+	pthread_mutex_unlock(&philo->own_fork);
+	pthread_mutex_unlock(philo->other_fork);
 }
