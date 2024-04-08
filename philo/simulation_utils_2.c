@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 11:36:40 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:37:05 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	try_to_get_fork_and_die(t_philo *philo)
 {
 	if (check_kill_flag(philo) == 1)
 		return ;
-	if (philo->time_to_die <= philo->time_to_eat)
+	if (philo->time_to_die < philo->time_to_eat)
 	{
 		if (check_if_philo_starts_in_2nd_wave(philo) == 1)
 			return (wait_and_die(philo));
@@ -120,6 +120,5 @@ int	check_kill_flag(t_philo *philo)
 	else
 		result = 0;
 	pthread_mutex_unlock(philo->death_flag);
-	//printf("Kill flag status: %d\n", result);
 	return (result);
 }

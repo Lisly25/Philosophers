@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 10:36:55 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:36:32 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	go_to_eat(t_philo *philo)
 	if (philo->need_to_die == 1)
 	{
 		wait_and_die(philo);
+		unlock_both_forks(philo);
 		return (1);
 	}
 	ft_sleep(eat_time, philo);
@@ -73,12 +74,12 @@ int	go_to_sleep(t_philo *philo)
 	useconds_t	sleep_time;
 
 	sleep_time = philo->time_to_sleep;
-	if (check_kill_flag(philo) == 1)
-		return (1);
-	check_for_dying(philo, 2);
+	//if (check_kill_flag(philo) == 1)
+	//	return (1);
 	if (check_kill_flag(philo) == 1)
 		return (1);
 	print_status(philo, "is sleeping");
+	check_for_dying(philo, 2);
 	if (philo->need_to_die == 1)
 	{
 		wait_and_die(philo);
@@ -93,19 +94,18 @@ int	go_to_sleep(t_philo *philo)
 
 void	check_for_dying(t_philo *philo, int mode)
 {
-	useconds_t	time_elapsed;
-	useconds_t	time_since_last_meal;
-	useconds_t	logtime_to_finish_at;
+	useconds_t	time_since_last_meal_ms;
+	useconds_t	min_time_to_next_eat;
+	useconds_t	timestamp_current;
 
-	time_elapsed = get_elapsed_time(philo);
-	time_since_last_meal = time_elapsed - philo->last_meal;
-	logtime_to_finish_at = time_since_last_meal + philo->time_to_eat;
+	timestamp_current = get_elapsed_time(philo);
+	time_since_last_meal_ms = timestamp_current - philo->last_meal;
+	if (mode == 1)
+		min_time_to_next_eat = time_since_last_meal_ms;
 	if (mode == 2)
-		logtime_to_finish_at = time_since_last_meal + philo->time_to_sleep;
-	if (logtime_to_finish_at > (useconds_t)philo->time_to_die)
+		min_time_to_next_eat = time_since_last_meal_ms + philo->time_to_sleep;
+	if (min_time_to_next_eat > (useconds_t)philo->time_to_die)
 		philo->need_to_die = 1;
-	else if (logtime_to_finish_at == (useconds_t)philo->time_to_die)
-		philo->need_to_die = -1;
 	else
 		philo->need_to_die = 0;
 }
