@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 15:36:32 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:46:56 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int	go_to_sleep(t_philo *philo)
 		return (1);
 	}
 	ft_sleep(sleep_time, philo);
-	if (check_kill_flag(philo) == 1)
-		return (1);
+	//if (check_kill_flag(philo) == 1)
+	//	return (1);
 	print_status(philo, "is thinking");
 	return (0);
 }

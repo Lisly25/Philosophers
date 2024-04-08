@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 12:43:29 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:44:48 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_philo
 	pthread_mutex_t	*other_fork;
 	pthread_mutex_t	*death_flag;
 	pthread_mutex_t	*print_flag;
-	pthread_mutex_t	*eat_count;
+	pthread_mutex_t	*eat_count_mutex_ptr;
 	int				nro;
 	int				philo_count;
 	int				time_to_die;
@@ -50,6 +50,8 @@ typedef struct s_philo
 	int				need_to_die;
 	int				*kill_signal;
 	int				kill_all;
+	int				eat_count;
+	int				*eat_count_ptr;
 	useconds_t		start_usec;
 	time_t			start_sec;
 	useconds_t		last_meal;
@@ -82,6 +84,7 @@ void		simulate(t_params *params, t_philo **philos);
 //log.c
 useconds_t	get_elapsed_time(t_philo *philo);
 void		print_status(t_philo *philo, char *message);
+void		print_death_status(t_philo *philo, char *message);
 
 //simulation_utils.c
 void		set_start_pattern(t_philo *philo);
@@ -101,5 +104,7 @@ int			check_kill_flag(t_philo *philo);
 int			set_death_flag(t_philo *philo);
 void		unlock_both_forks(t_philo *philo);
 int			init_monitor_mutexes(t_params *params, t_philo **philos);
+int			increment_eat_count(t_philo *philo);
+int			check_if_eat_threshold_is_reached(t_philo *philo);
 
 #endif
