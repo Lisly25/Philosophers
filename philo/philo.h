@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 11:36:18 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 12:43:29 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_params
 	int				eat_threshold;
 	pthread_mutex_t	death_monitor;
 	pthread_mutex_t	print_monitor;
+	pthread_mutex_t	eat_count_monitor;
 }	t_params;
 
 typedef struct s_philo
@@ -39,6 +40,7 @@ typedef struct s_philo
 	pthread_mutex_t	*other_fork;
 	pthread_mutex_t	*death_flag;
 	pthread_mutex_t	*print_flag;
+	pthread_mutex_t	*eat_count;
 	int				nro;
 	int				philo_count;
 	int				time_to_die;
@@ -98,5 +100,6 @@ int			check_kill_flag(t_philo *philo);
 //simulation_utils_3.c
 int			set_death_flag(t_philo *philo);
 void		unlock_both_forks(t_philo *philo);
+int			init_monitor_mutexes(t_params *params, t_philo **philos);
 
 #endif

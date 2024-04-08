@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 11:31:32 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/08 12:51:18 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	init_locks(t_philo **philos, t_params *params)
 		if (pthread_mutex_init(&philos[i]->own_fork, NULL) != 0)
 		{
 			free_philos(philos, params);
-			free(params);
+			free(params);//also need to destroy mutexes that have been created up until the error!
 			return (-1);
 		}
 		i++;
@@ -80,6 +80,7 @@ static int	init_threads(t_params *params, t_philo **philos)
 		philos[i]->death_flag = &(params->death_monitor);
 		philos[i]->kill_signal = &(philos[0]->kill_all);
 		philos[i]->print_flag = &(params->print_monitor);
+		philos[i]->eat_count = &(params->eat_count_monitor);
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)philos[i]) != 0)
 			return (clean_strcts(philos, params, "Error: pthread_create\n", i));
@@ -104,20 +105,8 @@ void	simulate(t_params *params, t_philo **philos)
 {
 	if (init_locks(philos, params) == -1)
 		return ;
-	if (pthread_mutex_init(&params->death_monitor, NULL) != 0)
-	{
-		printf("Error: pthread_mutex_init\n");
-		free_philos(philos, params);
-		free(params);
+	if (init_monitor_mutexes(params, philos) == -1)
 		return ;
-	}
-	if (pthread_mutex_init(&params->print_monitor, NULL) != 0)
-	{
-		printf("Error: pthread_mutex_init\n");
-		free_philos(philos, params);
-		free(params);
-		return ;
-	}
 	if (init_threads(params, philos) == -1)
 		return ;
 	join_threads(params, philos);
