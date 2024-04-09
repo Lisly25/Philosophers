@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:29:54 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/03 15:02:51 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:26:49 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	main(int argc, char **argv)
 		printf("Error: number of arguments must be 4 or 5\n");
 		return (1);
 	}
+	if (argc == 6 && argv[5][0] == '0')
+		return (0);
 	params = init_params(argc, argv);
 	if (params == NULL)
 		return (1);
