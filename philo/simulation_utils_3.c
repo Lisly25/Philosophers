@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:56:27 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 13:56:18 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 10:36:00 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int	init_monitor_mutexes(t_params *params, t_philo **philos)//the fork-mutexes s
 
 int	increment_eat_count(t_philo *philo)
 {
+	philo->own_eat_count = philo->own_eat_count + 1;
+	if (philo->own_eat_count != philo->eat_threshold)
+		return (0);
 	if (pthread_mutex_lock(philo->eat_count_mutex_ptr) != 0)
 	{
 		printf("Mutex_lock_failed\n");
@@ -71,7 +74,7 @@ int	increment_eat_count(t_philo *philo)
 	return (0);
 }
 
-int	check_if_eat_threshold_is_reached(t_philo *philo)
+int	check_if_opt_done(t_philo *philo)
 {
 	int	result;
 

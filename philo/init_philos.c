@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:59:44 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 13:33:05 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 10:34:56 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static t_philo	**copy_params_to_philos(t_params *params, t_philo **philos)
 		philos[i]->time_to_sleep = params->time_to_sleep;
 		philos[i]->last_meal = 0;
 		philos[i]->kill_all = 0;
-		philos[i]->eat_count = 0;
+		philos[i]->eat_count_all = 0;
+		philos[i]->own_eat_count = 0;
 		i++;
 	}
 	return (philos);

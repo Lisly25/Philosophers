@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 10:05:26 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 10:49:48 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	go_to_eat(t_philo *philo)
 	useconds_t	eat_time;
 
 	eat_time = philo->time_to_eat;
-	if (check_kill_flag(philo) == 1)
+	if (check_kill_flag(philo) == 1 || check_if_opt_done(philo) == 1)
 	{
 		pthread_mutex_unlock(&philo->own_fork);
 		pthread_mutex_unlock(philo->other_fork);
@@ -66,6 +66,10 @@ int	go_to_eat(t_philo *philo)
 		return (1);
 	}
 	ft_sleep(eat_time, philo);
+	increment_eat_count(philo);
+	unlock_both_forks(philo);
+	if (check_if_opt_done(philo) == 1)
+		return (1);
 	return (0);
 }
 
@@ -74,20 +78,22 @@ int	go_to_sleep(t_philo *philo)
 	useconds_t	sleep_time;
 
 	sleep_time = philo->time_to_sleep;
-	//if (check_kill_flag(philo) == 1)
-	//	return (1);
-	if (check_kill_flag(philo) == 1)
+	if (check_kill_flag(philo) == 1 || check_if_opt_done(philo) == 1)
 		return (1);
 	print_status(philo, "is sleeping");
 	check_for_dying(philo, 2);
+	if (check_if_opt_done(philo) == 1)
+		return (1);
 	if (philo->need_to_die == 1)
 	{
 		wait_and_die(philo);
 		return (1);
 	}
+	if (check_if_opt_done(philo) == 1)
+		return (1);
 	ft_sleep(sleep_time, philo);
-	//if (check_kill_flag(philo) == 1)
-	//	return (1);
+	if (check_if_opt_done(philo) == 1)
+		return (1);
 	print_status(philo, "is thinking");
 	return (0);
 }

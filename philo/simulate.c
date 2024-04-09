@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 14:24:23 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 10:31:42 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static void	philo_cycle(t_philo *philo)
 	while (1)
 	{
 		check_for_dying(philo, 1);
-		if (philo->need_to_die == 1)//|| (philo->need_to_die == -1 && \
-		//check_if_philo_starts_in_2nd_wave(philo) == 1))
+		if (philo->need_to_die == 1)
 		{
 			try_to_get_fork_and_die(philo);
 			return ;
@@ -81,7 +80,7 @@ static int	init_threads(t_params *params, t_philo **philos)
 		philos[i]->kill_signal = &(philos[0]->kill_all);
 		philos[i]->print_flag = &(params->print_monitor);
 		philos[i]->eat_count_mutex_ptr = &(params->eat_count_monitor);
-		philos[i]->eat_count_ptr = &(philos[0]->eat_count);
+		philos[i]->eat_count_ptr = &(philos[0]->eat_count_all);
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)philos[i]) != 0)
 			return (clean_strcts(philos, params, "Error: pthread_create\n", i));

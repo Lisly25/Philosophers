@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:30:09 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 15:57:57 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 10:47:50 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_status(t_philo *philo, char *message)
 		printf("Error: pthread_mutex_lock\n");//should I use write() so that it feels less pointless?
 		return ;
 	}
-	if (check_kill_flag(philo) == 1)
+	if (check_kill_flag(philo) == 1 || check_if_opt_done(philo) == 1)
 	{
 		pthread_mutex_unlock(philo->print_flag);
 		return ;

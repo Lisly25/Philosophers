@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 15:44:48 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 10:31:42 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ typedef struct s_philo
 	int				need_to_die;
 	int				*kill_signal;
 	int				kill_all;
-	int				eat_count;
+	int				eat_count_all;
 	int				*eat_count_ptr;
+	int				own_eat_count;
 	useconds_t		start_usec;
 	time_t			start_sec;
 	useconds_t		last_meal;
@@ -105,6 +106,6 @@ int			set_death_flag(t_philo *philo);
 void		unlock_both_forks(t_philo *philo);
 int			init_monitor_mutexes(t_params *params, t_philo **philos);
 int			increment_eat_count(t_philo *philo);
-int			check_if_eat_threshold_is_reached(t_philo *philo);
+int			check_if_opt_done(t_philo *philo);
 
 #endif
