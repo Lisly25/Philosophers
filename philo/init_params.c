@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:38:15 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 11:08:15 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:12:07 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ static int	check_if_arg_is_valid(int arg, int i, t_params *params)
 	if (arg == 0 && i != 5)
 	{
 		printf("Error: only the optional argument can be 0\n");
-		return (-1);
-	}
-	if (i == 1 && arg > 200)
-	{
-		printf("Error: too many philosophers\n");
 		return (-1);
 	}
 	insert_param_to_struct(arg, i, params);
