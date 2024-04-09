@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:30:09 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 10:47:50 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:15:51 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_status(t_philo *philo, char *message)
 
 	if (pthread_mutex_lock(philo->print_flag) != 0)
 	{
-		printf("Error: pthread_mutex_lock\n");//should I use write() so that it feels less pointless?
+		printf("Error: pthread_mutex_lock\n");
 		return ;
 	}
 	if (check_kill_flag(philo) == 1 || check_if_opt_done(philo) == 1)
@@ -58,7 +58,7 @@ void	print_death_status(t_philo *philo, char *message)
 
 	if (pthread_mutex_lock(philo->print_flag) != 0)
 	{
-		printf("Error: pthread_mutex_lock\n");//should I use write() so that it feels less pointless?
+		printf("Error: pthread_mutex_lock\n");
 		return ;
 	}
 	time_elapsed = get_elapsed_time(philo);
