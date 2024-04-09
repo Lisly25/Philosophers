@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 13:12:13 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:41:25 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	philo_cycle(t_philo *philo)
 	usleep(1);
 	if (philo->philo_count == 1)
 	{
-		printf("For now, just print this and stop\n");
+		print_status(philo, "has taken a fork");
+		wait_and_die(philo);
 		return ;
 	}
 	set_start_pattern(philo);
