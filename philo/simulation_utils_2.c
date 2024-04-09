@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 15:47:25 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 10:06:45 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	wait_and_die(t_philo *philo)
 	if (check_kill_flag(philo) == 1)
 		return ;
 	set_death_flag(philo);
-	print_death_status(philo, "is dead");
+	print_death_status(philo, "died");
 }
 
 int	check_if_philo_starts_in_2nd_wave(t_philo *philo)
