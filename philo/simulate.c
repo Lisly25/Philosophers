@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 10:31:42 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 13:12:13 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	philo_cycle(t_philo *philo)
 			try_to_get_fork_and_die(philo);
 			return ;
 		}
+		else if (philo->need_to_die == 2)
+			return (wait_and_die(philo));
 		else
 			if (wait_for_fork(philo) != 0)
 				return ;

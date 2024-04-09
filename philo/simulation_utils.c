@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 10:49:48 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 13:14:24 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,13 @@ void	check_for_dying(t_philo *philo, int mode)
 		min_time_to_next_eat = time_since_last_meal_ms;
 	else
 		min_time_to_next_eat = time_since_last_meal_ms + philo->time_to_sleep;
-	if (min_time_to_next_eat > (useconds_t)philo->time_to_die)
+	if (mode == 1 && check_if_philo_starts_in_2nd_wave(philo) == 0 \
+	&& philo->own_eat_count != 0)
+	{
+		if (philo->time_to_eat > (philo->time_to_die / 2))
+			philo->need_to_die = 2;
+	}
+	else if (min_time_to_next_eat > (useconds_t)philo->time_to_die)
 		philo->need_to_die = 1;
 	else
 		philo->need_to_die = 0;
