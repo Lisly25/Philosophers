@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:56:27 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 10:36:00 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:19:40 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	check_if_opt_done(t_philo *philo)
 		printf("Mutex_lock_failed\n");
 		return (-1);
 	}
-	if (*(philo->eat_count_ptr) == philo->eat_threshold)
+	if (*(philo->eat_count_ptr) == philo->philo_count)
 		result = 1;
 	else
 		result = 0;
