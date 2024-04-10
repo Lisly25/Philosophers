@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:23:35 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 13:14:24 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/10 11:48:55 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	set_start_pattern(t_philo *philo)
 	}
 }
 
-void	ft_sleep(useconds_t duration, t_philo *philo)//will need to check how much the simulation would be slowed by checking for the death flag every loop
+void	ft_sleep(useconds_t duration, t_philo *philo)
 {
 	useconds_t	elapsed_time;
 	useconds_t	elapsed_time_goal;
