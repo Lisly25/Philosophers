@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:10:57 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/10 11:45:47 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:29:54 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	free_philos(t_philo **philos, t_params *params)
 	i = 0;
 	while (i < params->philo_count)
 	{
-		free(philos[i]);
+		if (philos[i] != NULL)
+			free(philos[i]);
 		i++;
 	}
 	free(philos);

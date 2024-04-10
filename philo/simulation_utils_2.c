@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:36:01 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 13:14:01 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:34:03 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int	check_kill_flag(t_philo *philo)
 	if (pthread_mutex_lock(philo->death_flag) != 0)
 	{
 		printf("Mutex_lock_failed - death flag\n");
+		set_death_flag(philo);
 		return (-1);
 	}
 	if (*(philo->kill_signal) == 1)
