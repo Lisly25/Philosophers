@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 10:31:42 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/10 11:32:44 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ void		destroy_mutexes(t_philo **philos, int i, t_params *params);
 int			clean_strcts(t_philo **philos, t_params *params, char *str, int i);
 int			print_error_and_return_1(char *msg, t_philo *philo, int lock_nr);
 void		print_error(char *msg, t_philo *philo, int lock_nr);
+
+//error_2.c
+void		destroy_fork_mutexes(t_philo **philos, int i);
+void		destroy_forks_and_free(t_philo **philos, t_params *params);
 
 //init_philos.c
 t_philo		**init_philos(t_params *params);

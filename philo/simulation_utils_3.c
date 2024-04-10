@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:56:27 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 14:19:40 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/10 11:35:30 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,24 @@ void	unlock_both_forks(t_philo *philo)
 	pthread_mutex_unlock(philo->other_fork);
 }
 
-int	init_monitor_mutexes(t_params *params, t_philo **philos)//the fork-mutexes should also be destroyed on error!
+int	init_monitor_mutexes(t_params *params, t_philo **philos)
 {
 	if (pthread_mutex_init(&params->death_monitor, NULL) != 0)
 	{
-		printf("Error: pthread_mutex_init\n");
-		free_philos(philos, params);
-		free(params);
+		destroy_forks_and_free(philos, params);
 		return (-1);
 	}
 	if (pthread_mutex_init(&params->print_monitor, NULL) != 0)
 	{
-		printf("Error: pthread_mutex_init\n");
-		free_philos(philos, params);
-		free(params);
 		pthread_mutex_destroy(&params->death_monitor);
+		destroy_forks_and_free(philos, params);
 		return (-1);
 	}
 	if (pthread_mutex_init(&params->eat_count_monitor, NULL) != 0)
 	{
-		printf("Error: pthread_mutex_init\n");
-		free_philos(philos, params);
-		free(params);
 		pthread_mutex_destroy(&params->death_monitor);
 		pthread_mutex_destroy(&params->print_monitor);
+		destroy_forks_and_free(philos, params);
 		return (-1);
 	}
 	return (0);

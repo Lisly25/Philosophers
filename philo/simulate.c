@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 14:41:25 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/10 11:06:22 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	philo_cycle(t_philo *philo)
 	}
 }
 
-static int	init_locks(t_philo **philos, t_params *params)
+static int	init_fork_mutexes(t_philo **philos, t_params *params)
 {
 	int	i;
 
@@ -49,8 +49,9 @@ static int	init_locks(t_philo **philos, t_params *params)
 	{
 		if (pthread_mutex_init(&philos[i]->own_fork, NULL) != 0)
 		{
+			destroy_fork_mutexes(philos, i);
 			free_philos(philos, params);
-			free(params);//also need to destroy mutexes that have been created up until the error!
+			free(params);
 			return (-1);
 		}
 		i++;
@@ -74,7 +75,7 @@ static int	init_threads(t_params *params, t_philo **philos)
 	struct timeval	start;
 
 	i = 0;
-	gettimeofday(&start, NULL);//should I error check this?
+	gettimeofday(&start, NULL);
 	while (i < params->philo_count)
 	{
 		philos[i]->start_sec = start.tv_sec;
@@ -106,7 +107,7 @@ static void	join_threads(t_params *params, t_philo **philos)
 
 void	simulate(t_params *params, t_philo **philos)
 {
-	if (init_locks(philos, params) == -1)
+	if (init_fork_mutexes(philos, params) == -1)
 		return ;
 	if (init_monitor_mutexes(params, philos) == -1)
 		return ;

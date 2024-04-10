@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:10:57 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/08 12:44:50 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/10 11:04:04 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,7 @@ void	free_philos(t_philo **philos, t_params *params)
 
 void	destroy_mutexes(t_philo **philos, int i, t_params *params)
 {
-	int	j;
-
-	j = 0;
-	while (j < i)
-	{
-		pthread_mutex_destroy(&philos[j]->own_fork);
-		j++;
-	}
+	destroy_fork_mutexes(philos, i);
 	pthread_mutex_destroy(&params->death_monitor);
 	pthread_mutex_destroy(&params->print_monitor);
 	pthread_mutex_destroy(&params->eat_count_monitor);
