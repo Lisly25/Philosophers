@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/11 10:12:41 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:39:22 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ static void	join_threads(t_params *params, t_philo **philos)
 	}
 }
 
-void	simulate(t_params *params, t_philo **philos)
+int	simulate(t_params *params, t_philo **philos)
 {
 	if (init_fork_mutexes(philos, params) == -1)
-		return ;
+		return (-1);
 	if (init_monitor_mutexes(params, philos) == -1)
-		return ;
+		return (-1);
 	if (init_threads(params, philos) == -1)
-		return ;
+		return (-1);
 	join_threads(params, philos);
 }

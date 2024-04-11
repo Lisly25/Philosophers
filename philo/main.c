@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:29:54 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/11 10:20:04 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:40:19 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	main(int argc, char **argv)
 	philos = init_philos(params);
 	if (philos == NULL)
 		return (1);
-	simulate(params, philos);
+	if (simulate(params, philos) == -1)
+		return (1);
+	destroy_mutexes(philos, params->philo_count, params);
 	free_philos(philos, params);
 	free(params);
+	return (0);
 }

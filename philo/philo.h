@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:30:59 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/11 10:13:11 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:39:58 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void		destroy_forks_and_free(t_philo **philos, t_params *params);
 t_philo		**init_philos(t_params *params);
 
 //simulate.c
-void		simulate(t_params *params, t_philo **philos);
+int			simulate(t_params *params, t_philo **philos);
 
 //log.c
 useconds_t	get_elapsed_time(t_philo *philo);
