@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/11 10:39:22 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:44:11 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,5 @@ int	simulate(t_params *params, t_philo **philos)
 	if (init_threads(params, philos) == -1)
 		return (-1);
 	join_threads(params, philos);
+	return (0);
 }
