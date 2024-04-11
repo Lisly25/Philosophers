@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:10:57 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/10 13:29:54 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:14:52 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	clean_strcts(t_philo **philos, t_params *params, char *error, int i)
 {
-	printf("%s", error);
+	ft_putendl_fd(error, 2);
 	destroy_mutexes(philos, i, params);
 	free_philos(philos, params);
 	free(params);
@@ -45,7 +45,7 @@ void	destroy_mutexes(t_philo **philos, int i, t_params *params)
 
 int	print_error_and_return_1(char *msg, t_philo *philo, int lock_nr)
 {
-	printf("Thread %d: %s\n", philo->nro + 1, msg);
+	ft_putendl_fd(msg, 2);
 	set_death_flag(philo);
 	if (lock_nr == 2)
 		pthread_mutex_unlock(&philo->own_fork);
@@ -54,7 +54,7 @@ int	print_error_and_return_1(char *msg, t_philo *philo, int lock_nr)
 
 void	print_error(char *msg, t_philo *philo, int lock_nr)
 {
-	printf("Thread %d: %s\n", philo->nro + 1, msg);
+	ft_putendl_fd(msg, 2);
 	set_death_flag(philo);
 	if (lock_nr == 2)
 		pthread_mutex_unlock(&philo->own_fork);

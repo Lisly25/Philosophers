@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:59:44 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 10:34:56 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:18:16 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_philo	**init_philos(t_params *params)
 	philos = (t_philo **)malloc(sizeof(t_philo *) * (params->philo_count + 1));
 	if (philos == NULL)
 	{
-		printf("Error: malloc failure\n");
+		ft_putendl_fd("Error: malloc failure", 2);
 		free(params);
 		return (NULL);
 	}
@@ -52,7 +52,7 @@ t_philo	**init_philos(t_params *params)
 		philos[i] = (t_philo *)malloc(sizeof(t_philo));
 		if (philos[i] == NULL)
 		{
-			printf("Error: malloc failure\n");
+			ft_putendl_fd("Error: malloc failure", 2);
 			free_philos(philos, params);
 			free(params);
 			return (NULL);

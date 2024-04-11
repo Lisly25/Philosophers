@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:38:15 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 15:12:07 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:18:01 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static int	check_if_arg_is_valid(int arg, int i, t_params *params)
 {
 	if (arg < 0)
 	{
-		printf("Error: arguments can't be negative numbers\n");
+		ft_putendl_fd("Error: arguments can't be negative numbers", 2);
 		return (-1);
 	}
 	if (arg == 0 && i != 5)
 	{
-		printf("Error: only the optional argument can be 0\n");
+		ft_putendl_fd("Error: only the optional argument can be 0", 2);
 		return (-1);
 	}
 	insert_param_to_struct(arg, i, params);
@@ -51,19 +51,19 @@ static int	init_param(int i, char *arg, t_params *params)
 	arg_str = ft_itoa(arg_num);
 	if (arg_str == NULL)
 	{
-		printf("Error: malloc failure\n");
+		ft_putendl_fd("Error: malloc failure", 2);
 		return (-1);
 	}
 	if (ft_strlen(arg) != ft_strlen(arg_str))
 	{
 		free(arg_str);
-		printf("Error: %s: is not an integer\n", arg);
+		ft_putendl_fd("Error: arguments must be positive integers", 2);
 		return (-1);
 	}
 	if (ft_strncmp(arg, arg_str, ft_strlen(arg)) != 0)
 	{
 		free(arg_str);
-		printf("Error: %s: is not an integer\n", arg);
+		ft_putendl_fd("Error: arguments must be positive integers", 2);
 		return (-1);
 	}
 	free(arg_str);
@@ -78,7 +78,7 @@ t_params	*init_params(int argc, char **argv)
 	params = malloc(sizeof(t_params));
 	if (params == NULL)
 	{
-		printf("Error: malloc failure\n");
+		ft_putendl_fd("Error: malloc failure", 2);
 		return (NULL);
 	}
 	i = 1;

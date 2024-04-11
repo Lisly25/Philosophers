@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:52:55 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/02 10:33:51 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:13:37 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,18 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	result = (unsigned char) s1[i] - (unsigned char) s2[i];
 	return (result);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+	write(fd, "\n", 1);
+	return ;
 }

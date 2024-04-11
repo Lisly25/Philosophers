@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:56:27 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/10 13:35:30 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:21:38 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	set_death_flag(t_philo *philo)
 {
 	if (pthread_mutex_lock(philo->death_flag) != 0)
 	{
-		printf("Mutex_lock_failed\n");
+		ft_putendl_fd("Mutex_lock_failed", 2);
 		return (-1);
 	}
 	*(philo->kill_signal) = 1;
@@ -60,7 +60,7 @@ int	increment_eat_count(t_philo *philo)
 		return (0);
 	if (pthread_mutex_lock(philo->eat_count_mutex_ptr) != 0)
 	{
-		printf("Mutex_lock_failed\n");
+		ft_putendl_fd("Mutex_lock_failed", 2);
 		set_death_flag(philo);
 		return (-1);
 	}
@@ -75,7 +75,7 @@ int	check_if_opt_done(t_philo *philo)
 
 	if (pthread_mutex_lock(philo->eat_count_mutex_ptr) != 0)
 	{
-		printf("Mutex_lock_failed\n");
+		ft_putendl_fd("Mutex_lock_failed", 2);
 		set_death_flag(philo);
 		return (-1);
 	}

@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:30:09 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/10 13:30:47 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:22:57 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_status(t_philo *philo, char *message)
 
 	if (pthread_mutex_lock(philo->print_flag) != 0)
 	{
-		printf("Error: pthread_mutex_lock\n");
+		ft_putendl_fd("Error: pthread_mutex_lock", 2);
 		set_death_flag(philo);
 		return ;
 	}
@@ -49,7 +49,7 @@ void	print_status(t_philo *philo, char *message)
 		return ;
 	}
 	time_elapsed = get_elapsed_time(philo);
-	printf("%ums: %d %s\n", time_elapsed, philo->nro + 1, message);
+	printf("%u ms %d %s\n", time_elapsed, philo->nro + 1, message);
 	pthread_mutex_unlock(philo->print_flag);
 }
 
@@ -59,11 +59,11 @@ void	print_death_status(t_philo *philo, char *message)
 
 	if (pthread_mutex_lock(philo->print_flag) != 0)
 	{
-		printf("Error: pthread_mutex_lock\n");
+		ft_putendl_fd("Error: pthread_mutex_lock", 2);
 		set_death_flag(philo);
 		return ;
 	}
 	time_elapsed = get_elapsed_time(philo);
-	printf("%ums: %d %s\n", time_elapsed, philo->nro + 1, message);
+	printf("%u ms %d %s\n", time_elapsed, philo->nro + 1, message);
 	pthread_mutex_unlock(philo->print_flag);
 }

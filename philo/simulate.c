@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:29:52 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/10 11:06:22 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:12:41 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	init_threads(t_params *params, t_philo **philos)
 		philos[i]->eat_count_ptr = &(philos[0]->eat_count_all);
 		if (pthread_create(&philos[i]->thread, NULL, (void *)(*philo_cycle), \
 		(void *)philos[i]) != 0)
-			return (clean_strcts(philos, params, "Error: pthread_create\n", i));
+			return (clean_strcts(philos, params, "Error: pthread_create", i));
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: skorbai <skorbai@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:29:54 by skorbai           #+#    #+#             */
-/*   Updated: 2024/04/09 14:26:49 by skorbai          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:20:04 by skorbai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 	{
-		printf("Error: number of arguments must be 4 or 5\n");
+		ft_putendl_fd("Error: number of arguments must be 4 or 5", 2);
 		return (1);
 	}
 	if (argc == 6 && argv[5][0] == '0')
