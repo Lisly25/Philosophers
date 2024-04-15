@@ -12,9 +12,19 @@ This Hive Helsinki project's purpose was to introduce us to multithreading. The 
 - after waking up, a philosopher will start thinking and waits for a chance to eat again
 - the philosphers can't talk to each other
 
-**II. THE PROGRAM**
+**II. How to install***
 
-Instead, the program takes four arguments, plus an optional one:
+1. Clone this repository
+2. Navigate inside the reository, then inside the directory "philo"
+3. Run the command "make"
+
+An executable called "philo" will be created.
+
+**III. THE PROGRAM**
+
+The program takes four arguments, plus an optional one:
+
+./philo "number_of_philosophers" "time_to_die" "time_to_eat" "time_to_sleep" "eat_count"
 
 1. The number of philosophers
 2. The time_to_die in milliseconds: if a philosopher did not start eating at least this many miliseconds since it has last started eating (or the start of the simulation), it will die
@@ -34,5 +44,14 @@ The program prints logs to the standard output in the following format:
 
 "timestamp in milliseconds" "number of the philosopher" "event"
 
+(example: 0 ms 1 has taken a fork)
+
 The program works by creating a thread to represent each philosopher. The forks are represented as mutexes to prevent two philosophers from using the same fork at once.
 Other mutexes are also utilized to keep track of the times philosophers have eaten, if any died, or if any is printing a log entry to prevent race conditions
+
+If a philosopher reaches the "time to die", but it also gets the chance to start eating still within the same millisecond, eating will have priority: technically, it will only die if there wouldn't be enough forks available for it to eat.
+
+(So, technically, philosophers can survive indefinitely with these parameters: ./philo 2 60 30 30)
+
+The number of philosophers the program accept technically must be between 1 and INT_MAX, but in practice you should not try to run a simulation with too many threads: it has only been tested with up to 200.
+
