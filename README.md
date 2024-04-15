@@ -12,7 +12,7 @@ This Hive Helsinki project's purpose was to introduce us to multithreading. The 
 - after waking up, a philosopher will start thinking and waits for a chance to eat again
 - the philosphers can't talk to each other
 
-**II. How to install***
+**II. How to install**
 
 1. Clone this repository
 2. Navigate inside the reository, then inside the directory "philo"
